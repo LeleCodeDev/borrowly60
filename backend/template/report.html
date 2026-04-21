@@ -1,0 +1,194 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        font-size: 12px;
+        color: #1a1a1a;
+        padding: 40px;
+        background: #fff;
+      }
+
+      .header {
+        margin-bottom: 32px;
+        text-align: center;
+        font-size: 3rem;
+        font-weight: bold;
+      }
+
+      .header h1 {
+        font-size: 20px;
+        font-weight: 700;
+        color: #1a1a1a;
+        margin-bottom: 4px;
+      }
+
+      .header p {
+        color: #888;
+        font-size: 11px;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      thead tr {
+        border-bottom: 2px solid #1a1a1a;
+      }
+
+      thead th {
+        padding: 8px 12px;
+        text-align: left;
+        font-size: 10px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.6px;
+        white-space: nowrap;
+      }
+
+      tbody tr {
+        border-bottom: 1px solid #e8e8e8;
+      }
+
+      tbody tr:last-child {
+        border-bottom: none;
+      }
+
+      td {
+        padding: 9px 12px;
+        vertical-align: middle;
+      }
+
+      .sub {
+        display: block;
+        font-size: 10px;
+        color: #999;
+        margin-top: 2px;
+      }
+
+      .muted {
+        color: #bbb;
+      }
+
+      .badge {
+        display: inline-block;
+        padding: 2px 8px;
+        border-radius: 4px;
+        font-size: 10px;
+        font-weight: 600;
+        text-transform: capitalize;
+        border: 1px solid;
+      }
+
+      .badge-pending {
+        color: #b45309;
+        border-color: #fcd34d;
+        background: #fffbeb;
+      }
+      .badge-approved {
+        color: #047857;
+        border-color: #6ee7b7;
+        background: #ecfdf5;
+      }
+      .badge-rejected {
+        color: #b91c1c;
+        border-color: #fca5a5;
+        background: #fef2f2;
+      }
+      .badge-borrowed {
+        color: #1d4ed8;
+        border-color: #93c5fd;
+        background: #eff6ff;
+      }
+      .badge-returned {
+        color: #555;
+        border-color: #d1d5db;
+        background: #f9fafb;
+      }
+
+      .footer {
+        margin-top: 40px;
+        font-size: 10px;
+        display: flex;
+        justify-content: space-between;
+        border-top: 1px solid #e8e8e8;
+        padding-top: 12px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <h1>Borrow Report</h1>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>No</th>
+          <th>Borrower</th>
+          <th>Officer</th>
+          <th>Item</th>
+          <th>Purpose</th>
+          <th>Qty</th>
+          <th>Officer Note</th>
+          <th>Borrow Date</th>
+          <th>Return Date</th>
+          <th>Status</th>
+          <th>Reviewed At</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{ range $index, $borrow := .Borrows }}
+        <tr>
+          <td>{{ Add $index 1 }}</td>
+          <td>
+            {{ $borrow.User.Username }}
+            <span class="sub">{{ $borrow.User.Email }}</span>
+          </td>
+          <td>
+            {{ if $borrow.ReviewedUser }} {{ $borrow.ReviewedUser.Username }}
+            <span class="sub">{{ $borrow.ReviewedUser.Email }}</span>
+            {{ else }}
+            <span class="muted">—</span>
+            {{ end }}
+          </td>
+          <td>{{ $borrow.Item.Name }}</td>
+          <td>{{ $borrow.Purpose }}</td>
+          <td>{{ $borrow.Quantity }}</td>
+          <td>
+            {{ if $borrow.OfficerNote }}{{ $borrow.OfficerNote }}{{ else }}<span
+              class="muted"
+              >—</span
+            >{{ end }}
+          </td>
+          <td>{{ $borrow.BorrowDate.Format "2 Jan 2006" }}</td>
+          <td>{{ $borrow.ReturnDate.Format "2 Jan 2006" }}</td>
+          <td>
+            <span class="badge badge-{{ $borrow.Status }}"
+              >{{ $borrow.Status }}</span
+            >
+          </td>
+          <td>
+            {{ if $borrow.ReviewAt }}{{ $borrow.ReviewAt.Format "2 Jan 2006"
+            }}{{ else }}<span class="muted">—</span>{{ end }}
+          </td>
+        </tr>
+        {{ end }}
+      </tbody>
+    </table>
+
+    <div class="footer">
+      <span>Borrowly</span>
+      <span>{{ .Year }}</span>
+    </div>
+  </body>
+</html>
