@@ -26,7 +26,7 @@ type App struct {
 	CategoryHandler  *handler.CategoryHandler
 	ItemHandler      *handler.ItemHandler
 	// BorrowHandler    *handler.BorrowHandler
-	// LogHandler       *handler.LogHandler
+	LogHandler       *handler.LogHandler
 	// ReturnHandler    *handler.ReturnHandler
 	// DashboardHandler *handler.DashboardHandler
 }
@@ -45,7 +45,7 @@ func NewApp() *App {
 	borrowRepo := repository.NewBorrowRepository(db)
 	// returnRepo := repository.NewReturnRepository(db)
 
-	// logService := service.NewLogService(logRepo)
+	logService := service.NewLogService(logRepo)
 	// userService := service.NewUserService(txManager, userRepo, logRepo)
 	authService := service.NewAuthService(txManager, userRepo)
 	categoryService := service.NewCategoryService(txManager, categoryRepo, itemRepo, borrowRepo, logRepo)
@@ -63,7 +63,7 @@ func NewApp() *App {
 		CategoryHandler:  handler.NewCategoryHandler(categoryService),
 		ItemHandler:      handler.NewItemHandler(itemService),
 		// BorrowHandler:    handler.NewBorrowHandler(borrowService),
-		// LogHandler:       handler.NewLogHandler(logService),
+		LogHandler:       handler.NewLogHandler(logService),
 		// ReturnHandler:    handler.NewReturnHandler(returnService),
 		// DashboardHandler: handler.NewDashboardHandler(dashboardService),
 	}

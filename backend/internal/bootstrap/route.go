@@ -43,35 +43,35 @@ func (a *App) RegisterRoute() {
 
 	admin := authenticated.Group("")
 	admin.Use(middleware.RoleMiddleware(model.RoleAdmin))
-	// {
-	// 	admin.GET("/logs", a.LogHandler.GetAllLogs)
+	{
+		admin.GET("/logs", a.LogHandler.GetAllLogs)
 
-	// 	admin.GET("/admin/dashboard", a.DashboardHandler.GetAdminDashboard)
+		// 	admin.GET("/admin/dashboard", a.DashboardHandler.GetAdminDashboard)
 
-	// 	admin.GET("/users", a.UserHandler.GetAllUsers)
-	// 	admin.GET("/users/:id", a.UserHandler.GetUserByID)
-	// 	admin.GET("/users/card", a.UserHandler.GetUserCard)
-	// 	admin.POST("/users", a.UserHandler.CreateUser)
-	// 	admin.PUT("/users/:id", a.UserHandler.UpdateUser)
-	// 	admin.DELETE("/users/:id", a.UserHandler.DeleteUser)
+		// 	admin.GET("/users", a.UserHandler.GetAllUsers)
+		// 	admin.GET("/users/:id", a.UserHandler.GetUserByID)
+		// 	admin.GET("/users/card", a.UserHandler.GetUserCard)
+		// 	admin.POST("/users", a.UserHandler.CreateUser)
+		// 	admin.PUT("/users/:id", a.UserHandler.UpdateUser)
+		// 	admin.DELETE("/users/:id", a.UserHandler.DeleteUser)
 
-	admin.POST("/categories", a.CategoryHandler.CreateCategory)
-	admin.PUT("/categories/:id", a.CategoryHandler.UpdateCategory)
-	admin.DELETE("/categories/:id", a.CategoryHandler.DeleteCategory)
+		admin.POST("/categories", a.CategoryHandler.CreateCategory)
+		admin.PUT("/categories/:id", a.CategoryHandler.UpdateCategory)
+		admin.DELETE("/categories/:id", a.CategoryHandler.DeleteCategory)
 
-	admin.POST("/items", a.ItemHandler.CreateItem)
-	admin.GET("/items/card", a.ItemHandler.GetItemCard)
-	admin.PUT("/items/:id", a.ItemHandler.UpdateItem)
-	admin.DELETE("/items/:id", a.ItemHandler.DeleteItem)
+		admin.POST("/items", a.ItemHandler.CreateItem)
+		admin.GET("/items/card", a.ItemHandler.GetItemCard)
+		admin.PUT("/items/:id", a.ItemHandler.UpdateItem)
+		admin.DELETE("/items/:id", a.ItemHandler.DeleteItem)
 
-	// 	admin.POST("/borrows", a.BorrowHandler.CreateBorrowForUser)
-	// 	admin.PUT("/borrows/:id", a.BorrowHandler.UpdateBorrowForUser)
-	// 	admin.DELETE("/borrows/:id", a.BorrowHandler.DeleteBorrow)
+		// 	admin.POST("/borrows", a.BorrowHandler.CreateBorrowForUser)
+		// 	admin.PUT("/borrows/:id", a.BorrowHandler.UpdateBorrowForUser)
+		// 	admin.DELETE("/borrows/:id", a.BorrowHandler.DeleteBorrow)
 
-	// 	admin.POST("/returns", a.ReturnHandler.CreateReturnForUser)
-	// 	admin.PUT("/returns/:id", a.ReturnHandler.UpdateReturnForUser)
-	// 	admin.DELETE("/returns/:id", a.ReturnHandler.DeleteReturn)
-	// }
+		// 	admin.POST("/returns", a.ReturnHandler.CreateReturnForUser)
+		// 	admin.PUT("/returns/:id", a.ReturnHandler.UpdateReturnForUser)
+		// 	admin.DELETE("/returns/:id", a.ReturnHandler.DeleteReturn)
+	}
 
 	borrower := authenticated.Group("")
 	borrower.Use(middleware.RoleMiddleware(model.RoleBorrower))

@@ -74,7 +74,7 @@ const AdminLogPage = () => {
             <div className="flex flex-col h-full justify-center items-center gap-3 py-20">
               <Spinner className="w-10 h-10" />
 
-              <p className="text-sm text-muted-foreground">Loading users...</p>
+              <p className="text-sm text-muted-foreground">Loading logs...</p>
             </div>
           ) : logs?.length === 0 ? (
             <div className="flex flex-col items-center gap-2 py-20">
