@@ -31,7 +31,7 @@ func (r *ItemRepository) Update(ctx context.Context, item *model.Item) error {
 	return r.db.WithContext(ctx).Save(item).Error
 }
 
-func (r *ItemRepository) GetAll(ctx context.Context, req dto.ItemQuery) ([]model.Item, int64, error) {
+func (r *ItemRepository) FindAll(ctx context.Context, req dto.ItemQuery) ([]model.Item, int64, error) {
 	var items []model.Item
 	var total int64
 
@@ -66,7 +66,7 @@ func (r *ItemRepository) GetAll(ctx context.Context, req dto.ItemQuery) ([]model
 	return items, total, nil
 }
 
-func (r *ItemRepository) GetByID(ctx context.Context, id int) (*model.Item, error) {
+func (r *ItemRepository) FindByID(ctx context.Context, id uint) (*model.Item, error) {
 	var item model.Item
 
 	if err := r.db.WithContext(ctx).Preload("Category").First(&item, id).Error; err != nil {
@@ -90,7 +90,7 @@ func (r *ItemRepository) Delete(ctx context.Context, item *model.Item) error {
 	return r.db.WithContext(ctx).Delete(item).Error
 }
 
-func (r *ItemRepository) DeleteByCategoryID(ctx context.Context, catgoryID int) error {
+func (r *ItemRepository) DeleteByCategoryID(ctx context.Context, catgoryID uint) error {
 	return r.db.WithContext(ctx).Where("category_id = ?", catgoryID).Delete(&model.Item{}).Error
 }
 

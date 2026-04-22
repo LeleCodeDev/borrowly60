@@ -59,7 +59,7 @@ func (r *BorrowRepository) GetAll(ctx context.Context, req dto.BorrowQuery) ([]m
 	return borrows, total, nil
 }
 
-func (r *BorrowRepository) ExistActiveByItemCategoryID(ctx context.Context, catagoryID int) (bool, error) {
+func (r *BorrowRepository) ExistActiveByItemCategoryID(ctx context.Context, catagoryID uint) (bool, error) {
 	var count int64
 	err := r.db.WithContext(ctx).
 		Model(&model.Borrow{}).
@@ -71,7 +71,7 @@ func (r *BorrowRepository) ExistActiveByItemCategoryID(ctx context.Context, cata
 	return count > 0, err
 }
 
-func (r *BorrowRepository) ExistActiveByItemID(ctx context.Context, itemID int) (bool, error) {
+func (r *BorrowRepository) ExistActiveByItemID(ctx context.Context, itemID uint) (bool, error) {
 	var count int64
 	err := r.db.WithContext(ctx).
 		Model(&model.Borrow{}).

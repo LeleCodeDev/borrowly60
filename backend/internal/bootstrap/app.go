@@ -23,7 +23,7 @@ type App struct {
 	AuthMiddleware gin.HandlerFunc
 	AuthHandler    *handler.AuthHandler
 	// UserHandler      *handler.UserHandler
-	// CategoryHandler  *handler.CategoryHandler
+	CategoryHandler  *handler.CategoryHandler
 	// ItemHandler      *handler.ItemHandler
 	// BorrowHandler    *handler.BorrowHandler
 	// LogHandler       *handler.LogHandler
@@ -39,16 +39,16 @@ func NewApp() *App {
 	txManager := repository.NewTxManager(db)
 
 	userRepo := repository.NewUserRepository(db)
-	// logRepo := repository.NewLogActivityRepository(db)
-	// categoryRepo := repository.NewCategoryRepository(db)
-	// itemRepo := repository.NewItemRepository(db)
-	// borrowRepo := repository.NewBorrowRepository(db)
+	logRepo := repository.NewLogActivityRepository(db)
+	categoryRepo := repository.NewCategoryRepository(db)
+	itemRepo := repository.NewItemRepository(db)
+	borrowRepo := repository.NewBorrowRepository(db)
 	// returnRepo := repository.NewReturnRepository(db)
 
 	// logService := service.NewLogService(logRepo)
 	// userService := service.NewUserService(txManager, userRepo, logRepo)
 	authService := service.NewAuthService(txManager, userRepo)
-	// categoryService := service.NewCategoryService(txManager, categoryRepo, itemRepo, borrowRepo, logRepo)
+	categoryService := service.NewCategoryService(txManager, categoryRepo, itemRepo, borrowRepo, logRepo)
 	// itemService := service.NewItemService(txManager, itemRepo, categoryRepo, logRepo)
 	// borrowService := service.NewBorrowService(txManager, borrowRepo, itemRepo, userRepo, logRepo, returnRepo)
 	// returnService := service.NewReturnService(txManager, returnRepo, borrowRepo, itemRepo, logRepo)
@@ -60,7 +60,7 @@ func NewApp() *App {
 		AuthMiddleware: middleware.AuthMiddleware(userRepo),
 		// UserHandler:      handler.NewUserHandler(userService),
 		AuthHandler: handler.NewAuthHandler(authService),
-		// CategoryHandler:  handler.NewCategoryHandler(categoryService),
+		CategoryHandler:  handler.NewCategoryHandler(categoryService),
 		// ItemHandler:      handler.NewItemHandler(itemService),
 		// BorrowHandler:    handler.NewBorrowHandler(borrowService),
 		// LogHandler:       handler.NewLogHandler(logService),

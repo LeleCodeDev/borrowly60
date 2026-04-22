@@ -38,7 +38,7 @@ func NewCategoryService(
 }
 
 func (s *CategoryService) GetAll(ctx context.Context, req dto.CategoryQuery) ([]dto.CategoryResponse, int64, error) {
-	categories, total, err := s.repo.GetAll(ctx, req)
+	categories, total, err := s.repo.FindAll(ctx, req)
 	if err != nil {
 		return nil, 0, err
 	}
@@ -52,8 +52,8 @@ func (s *CategoryService) GetAll(ctx context.Context, req dto.CategoryQuery) ([]
 	return responses, total, nil
 }
 
-func (s *CategoryService) GetByID(ctx context.Context, id int) (dto.CategoryResponse, error) {
-	category, err := s.repo.GetByID(ctx, id)
+func (s *CategoryService) GetByID(ctx context.Context, id uint) (dto.CategoryResponse, error) {
+	category, err := s.repo.FindByID(ctx, id)
 	if err != nil {
 		return dto.CategoryResponse{}, err
 	}
@@ -104,14 +104,14 @@ func (s *CategoryService) Create(ctx context.Context, currentUser model.User, re
 	return mapper.ToCategoryResponse(createdCategory), nil
 }
 
-func (s *CategoryService) Update(ctx context.Context, id int, currentUser model.User, req dto.CategoryRequest) (dto.CategoryResponse, error) {
+func (s *CategoryService) Update(ctx context.Context, id uint, currentUser model.User, req dto.CategoryRequest) (dto.CategoryResponse, error) {
 	var Updatedcategory *model.Category
 
 	if err := s.txManager.Transaction(ctx, func(tx *gorm.DB) error {
 		txRepo := s.repo.WithTx(tx)
 		txLogRepo := s.logRepo.WithTx(tx)
 
-		category, err := txRepo.GetByID(ctx, id)
+		category, err := txRepo.FindByID(ctx, id)
 		if err != nil {
 			return err
 		}
@@ -151,14 +151,14 @@ func (s *CategoryService) Update(ctx context.Context, id int, currentUser model.
 	return mapper.ToCategoryResponse(Updatedcategory), nil
 }
 
-func (s *CategoryService) Delete(ctx context.Context, currentUser model.User, id int) error {
+func (s *CategoryService) Delete(ctx context.Context, currentUser model.User, id uint) error {
 	return s.txManager.Transaction(ctx, func(tx *gorm.DB) error {
 		txCategoryRepo := s.repo.WithTx(tx)
 		txItemRepo := s.itemRepo.WithTx(tx)
 		txBorrowRepo := s.borrowRepo.WithTx(tx)
 		txLogRepo := s.logRepo.WithTx(tx)
 
-		category, err := txCategoryRepo.GetByID(ctx, id)
+		category, err := txCategoryRepo.FindByID(ctx, id)
 		if err != nil {
 			return err
 		}

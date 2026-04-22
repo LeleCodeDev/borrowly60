@@ -19,7 +19,7 @@ func NewCategoryRepository(db *gorm.DB) *CategoryRepository {
 	}
 }
 
-func (r *CategoryRepository) GetAll(ctx context.Context, req dto.CategoryQuery) ([]model.Category, int64, error) {
+func (r *CategoryRepository) FindAll(ctx context.Context, req dto.CategoryQuery) ([]model.Category, int64, error) {
 	var categories []model.Category
 	var total int64
 
@@ -46,7 +46,7 @@ func (r *CategoryRepository) GetAll(ctx context.Context, req dto.CategoryQuery) 
 	return categories, total, nil
 }
 
-func (r *CategoryRepository) GetByID(ctx context.Context, id int) (*model.Category, error) {
+func (r *CategoryRepository) FindByID(ctx context.Context, id uint) (*model.Category, error) {
 	var category model.Category
 
 	if err := r.db.WithContext(ctx).First(&category, id).Error; err != nil {

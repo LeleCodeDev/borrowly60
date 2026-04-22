@@ -22,8 +22,8 @@ func (a *App) RegisterRoute() {
 	allRoles := authenticated.Group("")
 	allRoles.Use(middleware.RoleMiddleware(model.RoleAdmin, model.RoleOfficer, model.RoleBorrower))
 	{
-		// allRoles.GET("/categories", a.CategoryHandler.GetAllCategories)
-		// allRoles.GET("/categories/:id", a.CategoryHandler.GetCategoryByID)
+		allRoles.GET("/categories", a.CategoryHandler.GetAllCategories)
+		allRoles.GET("/categories/:id", a.CategoryHandler.GetCategoryByID)
 
 		// allRoles.GET("/items", a.ItemHandler.GetAllItems)
 		// allRoles.GET("/items/:id", a.ItemHandler.GetItemByID)
@@ -55,9 +55,9 @@ func (a *App) RegisterRoute() {
 	// 	admin.PUT("/users/:id", a.UserHandler.UpdateUser)
 	// 	admin.DELETE("/users/:id", a.UserHandler.DeleteUser)
 
-	// 	admin.POST("/categories", a.CategoryHandler.CreateCategory)
-	// 	admin.PUT("/categories/:id", a.CategoryHandler.UpdateCategory)
-	// 	admin.DELETE("/categories/:id", a.CategoryHandler.DeleteCategory)
+	admin.POST("/categories", a.CategoryHandler.CreateCategory)
+	admin.PUT("/categories/:id", a.CategoryHandler.UpdateCategory)
+	admin.DELETE("/categories/:id", a.CategoryHandler.DeleteCategory)
 
 	// 	admin.POST("/items", a.ItemHandler.CreateItem)
 	// 	admin.GET("/items/card", a.ItemHandler.GetItemCard)
