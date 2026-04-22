@@ -28,7 +28,7 @@ func (a *App) RegisterRoute() {
 		allRoles.GET("/items", a.ItemHandler.GetAllItems)
 		allRoles.GET("/items/:id", a.ItemHandler.GetItemByID)
 
-		// allRoles.GET("/auth/me", a.AuthHandler.GetUserProfile)
+		allRoles.GET("/auth/me", a.AuthHandler.GetUserProfile)
 	}
 
 	// adminAndOfficer := authenticated.Group("")
@@ -48,12 +48,12 @@ func (a *App) RegisterRoute() {
 
 		// 	admin.GET("/admin/dashboard", a.DashboardHandler.GetAdminDashboard)
 
-		// 	admin.GET("/users", a.UserHandler.GetAllUsers)
-		// 	admin.GET("/users/:id", a.UserHandler.GetUserByID)
-		// 	admin.GET("/users/card", a.UserHandler.GetUserCard)
-		// 	admin.POST("/users", a.UserHandler.CreateUser)
-		// 	admin.PUT("/users/:id", a.UserHandler.UpdateUser)
-		// 	admin.DELETE("/users/:id", a.UserHandler.DeleteUser)
+		admin.GET("/users", a.UserHandler.GetAllUsers)
+		admin.GET("/users/:id", a.UserHandler.GetUserByID)
+		admin.GET("/users/card", a.UserHandler.GetUserCard)
+		admin.POST("/users", a.UserHandler.CreateUser)
+		admin.PUT("/users/:id", a.UserHandler.UpdateUser)
+		admin.DELETE("/users/:id", a.UserHandler.DeleteUser)
 
 		admin.POST("/categories", a.CategoryHandler.CreateCategory)
 		admin.PUT("/categories/:id", a.CategoryHandler.UpdateCategory)

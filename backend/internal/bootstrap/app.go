@@ -18,15 +18,15 @@ import (
 )
 
 type App struct {
-	Router         *gin.Engine
-	DB             *gorm.DB
-	AuthMiddleware gin.HandlerFunc
-	AuthHandler    *handler.AuthHandler
-	// UserHandler      *handler.UserHandler
-	CategoryHandler  *handler.CategoryHandler
-	ItemHandler      *handler.ItemHandler
+	Router          *gin.Engine
+	DB              *gorm.DB
+	AuthMiddleware  gin.HandlerFunc
+	AuthHandler     *handler.AuthHandler
+	UserHandler     *handler.UserHandler
+	CategoryHandler *handler.CategoryHandler
+	ItemHandler     *handler.ItemHandler
 	// BorrowHandler    *handler.BorrowHandler
-	LogHandler       *handler.LogHandler
+	LogHandler *handler.LogHandler
 	// ReturnHandler    *handler.ReturnHandler
 	// DashboardHandler *handler.DashboardHandler
 }
@@ -46,7 +46,7 @@ func NewApp() *App {
 	// returnRepo := repository.NewReturnRepository(db)
 
 	logService := service.NewLogService(logRepo)
-	// userService := service.NewUserService(txManager, userRepo, logRepo)
+	userService := service.NewUserService(txManager, userRepo, logRepo)
 	authService := service.NewAuthService(txManager, userRepo)
 	categoryService := service.NewCategoryService(txManager, categoryRepo, itemRepo, borrowRepo, logRepo)
 	itemService := service.NewItemService(txManager, itemRepo, categoryRepo, logRepo)
@@ -55,15 +55,15 @@ func NewApp() *App {
 	// dashboardService := service.NewDashboardService(itemRepo, categoryRepo, userRepo, borrowRepo, returnRepo)
 
 	app := &App{
-		Router:         r,
-		DB:             db,
-		AuthMiddleware: middleware.AuthMiddleware(userRepo),
-		// UserHandler:      handler.NewUserHandler(userService),
-		AuthHandler: handler.NewAuthHandler(authService),
-		CategoryHandler:  handler.NewCategoryHandler(categoryService),
-		ItemHandler:      handler.NewItemHandler(itemService),
+		Router:          r,
+		DB:              db,
+		AuthMiddleware:  middleware.AuthMiddleware(userRepo),
+		UserHandler:     handler.NewUserHandler(userService),
+		AuthHandler:     handler.NewAuthHandler(authService),
+		CategoryHandler: handler.NewCategoryHandler(categoryService),
+		ItemHandler:     handler.NewItemHandler(itemService),
 		// BorrowHandler:    handler.NewBorrowHandler(borrowService),
-		LogHandler:       handler.NewLogHandler(logService),
+		LogHandler: handler.NewLogHandler(logService),
 		// ReturnHandler:    handler.NewReturnHandler(returnService),
 		// DashboardHandler: handler.NewDashboardHandler(dashboardService),
 	}

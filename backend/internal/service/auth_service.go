@@ -47,7 +47,7 @@ func (s *AuthService) Register(ctx context.Context, req dto.RegisterRequest) (dt
 			return err
 		}
 
-		user := mapper.ToRegisterUserRequest(req, string(hashedPassword))
+		user := mapper.ToRegisterUserModel(req, string(hashedPassword))
 		if err := txRepo.Create(ctx, user); err != nil {
 			return err
 		}
@@ -86,4 +86,9 @@ func (s *AuthService) Login(ctx context.Context, req dto.LoginRequest) (dto.Auth
 	}
 
 	return mapper.ToAuthResponse(user, token), nil
+}
+
+func (s *AuthService) GetProfile(currentUser model.User) dto.UserResponse {
+	user := mapper.ToUserResponse(&currentUser)
+	return user
 }
