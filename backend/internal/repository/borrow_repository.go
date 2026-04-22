@@ -21,7 +21,7 @@ func (r *BorrowRepository) WithTx(tx *gorm.DB) *BorrowRepository {
 	return &BorrowRepository{db: tx}
 }
 
-func (r *BorrowRepository) GetAll(ctx context.Context, req dto.BorrowQuery) ([]model.Borrow, int64, error) {
+func (r *BorrowRepository) FindAll(ctx context.Context, req dto.BorrowQuery) ([]model.Borrow, int64, error) {
 	var borrows []model.Borrow
 	var total int64
 
@@ -82,7 +82,7 @@ func (r *BorrowRepository) ExistActiveByItemID(ctx context.Context, itemID uint)
 	return count > 0, err
 }
 
-func (r *BorrowRepository) GetAllByUserID(ctx context.Context, userID uint, req dto.BorrowQuery) ([]model.Borrow, int64, error) {
+func (r *BorrowRepository) FindAllByUserID(ctx context.Context, userID uint, req dto.BorrowQuery) ([]model.Borrow, int64, error) {
 	var borrows []model.Borrow
 	var total int64
 
@@ -122,7 +122,7 @@ func (r *BorrowRepository) GetAllByUserID(ctx context.Context, userID uint, req 
 	return borrows, total, nil
 }
 
-func (r *BorrowRepository) GetByID(ctx context.Context, id int) (*model.Borrow, error) {
+func (r *BorrowRepository) FindByID(ctx context.Context, id uint) (*model.Borrow, error) {
 	var borrow model.Borrow
 
 	if err := r.db.WithContext(ctx).

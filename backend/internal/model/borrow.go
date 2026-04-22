@@ -25,7 +25,7 @@ type Borrow struct {
 	ReviewedUser   *User        `gorm:"foreignKey:ReviewedUserID;constraint:OnDelete:SET NULL"`
 	ItemID         uint         `gorm:"not null;index"`
 	Item           Item         `gorm:"constraint:OnDelete:CASCADE"`
-	purpose        string       `gorm:"not null"`
+	Purpose        string       `gorm:"not null"`
 	Quantity       int          `gorm:"not null"`
 	OfficerNote    *string      `gorm:"type:text"`
 	BorrowDate     time.Time    `gorm:"type:date;not null"`
