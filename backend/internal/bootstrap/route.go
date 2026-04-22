@@ -37,8 +37,8 @@ func (a *App) RegisterRoute() {
 		adminAndOfficer.GET("/borrows", a.BorrowHandler.GetAllBorrows)
 		adminAndOfficer.GET("/borrows/card", a.BorrowHandler.GetBorrowCard)
 
-		// adminAndOfficer.GET("/returns", a.ReturnHandler.GetAllReturns)
-		// adminAndOfficer.GET("/returns/card", a.ReturnHandler.GetReturnCard)
+		adminAndOfficer.GET("/returns", a.ReturnHandler.GetAllReturns)
+		adminAndOfficer.GET("/returns/card", a.ReturnHandler.GetReturnCard)
 	}
 
 	admin := authenticated.Group("")
@@ -46,7 +46,7 @@ func (a *App) RegisterRoute() {
 	{
 		admin.GET("/logs", a.LogHandler.GetAllLogs)
 
-		// 	admin.GET("/admin/dashboard", a.DashboardHandler.GetAdminDashboard)
+		admin.GET("/admin/dashboard", a.DashboardHandler.GetAdminDashboard)
 
 		admin.GET("/users", a.UserHandler.GetAllUsers)
 		admin.GET("/users/:id", a.UserHandler.GetUserByID)
@@ -68,15 +68,15 @@ func (a *App) RegisterRoute() {
 		admin.PUT("/borrows/:id", a.BorrowHandler.UpdateBorrowForUser)
 		admin.DELETE("/borrows/:id", a.BorrowHandler.DeleteBorrow)
 
-		// 	admin.POST("/returns", a.ReturnHandler.CreateReturnForUser)
-		// 	admin.PUT("/returns/:id", a.ReturnHandler.UpdateReturnForUser)
-		// 	admin.DELETE("/returns/:id", a.ReturnHandler.DeleteReturn)
+		admin.POST("/returns", a.ReturnHandler.CreateReturnForUser)
+		admin.PUT("/returns/:id", a.ReturnHandler.UpdateReturnForUser)
+		admin.DELETE("/returns/:id", a.ReturnHandler.DeleteReturn)
 	}
 
 	borrower := authenticated.Group("")
 	borrower.Use(middleware.RoleMiddleware(model.RoleBorrower))
 	{
-		// borrower.GET("/borrower/dashboard", a.DashboardHandler.GetAdminDashboard)
+		borrower.GET("/borrower/dashboard", a.DashboardHandler.GetAdminDashboard)
 
 		borrower.GET("/my-borrows", a.BorrowHandler.GetAllBorrowsByUser)
 		borrower.GET("/my-borrows/card", a.BorrowHandler.GetBorrowCardByUser)
@@ -85,14 +85,14 @@ func (a *App) RegisterRoute() {
 		borrower.PUT("/my-borrows/:id/return", a.BorrowHandler.ReturnedBorrow)
 		borrower.PUT("/my-borrows/:id/cancel", a.BorrowHandler.CancelBorrow)
 
-		// 	borrower.GET("/my-returns", a.ReturnHandler.GetAllReturnsByUser)
-		// 	borrower.GET("/my-returns/card", a.ReturnHandler.GetReturnCardByUser)
+		borrower.GET("/my-returns", a.ReturnHandler.GetAllReturnsByUser)
+		borrower.GET("/my-returns/card", a.ReturnHandler.GetReturnCardByUser)
 	}
 
 	officer := authenticated.Group("")
 	officer.Use(middleware.RoleMiddleware(model.RoleOfficer))
 	{
-		// officer.GET("/officer/dashboard", a.DashboardHandler.GetOfficerDashboard)
+		officer.GET("/officer/dashboard", a.DashboardHandler.GetOfficerDashboard)
 
 		officer.PUT("/borrows/:id/approve", a.BorrowHandler.ApproveBorrow)
 		officer.PUT("/borrows/:id/reject", a.BorrowHandler.RejectBorrow)

@@ -18,17 +18,17 @@ import (
 )
 
 type App struct {
-	Router          *gin.Engine
-	DB              *gorm.DB
-	AuthMiddleware  gin.HandlerFunc
-	AuthHandler     *handler.AuthHandler
-	UserHandler     *handler.UserHandler
-	CategoryHandler *handler.CategoryHandler
-	ItemHandler     *handler.ItemHandler
+	Router           *gin.Engine
+	DB               *gorm.DB
+	AuthMiddleware   gin.HandlerFunc
+	AuthHandler      *handler.AuthHandler
+	UserHandler      *handler.UserHandler
+	CategoryHandler  *handler.CategoryHandler
+	ItemHandler      *handler.ItemHandler
 	BorrowHandler    *handler.BorrowHandler
-	LogHandler *handler.LogHandler
-	// ReturnHandler    *handler.ReturnHandler
-	// DashboardHandler *handler.DashboardHandler
+	LogHandler       *handler.LogHandler
+	ReturnHandler    *handler.ReturnHandler
+	DashboardHandler *handler.DashboardHandler
 }
 
 func NewApp() *App {
@@ -51,21 +51,21 @@ func NewApp() *App {
 	categoryService := service.NewCategoryService(txManager, categoryRepo, itemRepo, borrowRepo, logRepo)
 	itemService := service.NewItemService(txManager, itemRepo, categoryRepo, logRepo)
 	borrowService := service.NewBorrowService(txManager, borrowRepo, itemRepo, userRepo, logRepo, returnRepo)
-	// returnService := service.NewReturnService(txManager, returnRepo, borrowRepo, itemRepo, logRepo)
-	// dashboardService := service.NewDashboardService(itemRepo, categoryRepo, userRepo, borrowRepo, returnRepo)
+	returnService := service.NewReturnService(txManager, returnRepo, borrowRepo, itemRepo, logRepo)
+	dashboardService := service.NewDashboardService(itemRepo, categoryRepo, userRepo, borrowRepo, returnRepo)
 
 	app := &App{
-		Router:          r,
-		DB:              db,
-		AuthMiddleware:  middleware.AuthMiddleware(userRepo),
-		UserHandler:     handler.NewUserHandler(userService),
-		AuthHandler:     handler.NewAuthHandler(authService),
-		CategoryHandler: handler.NewCategoryHandler(categoryService),
-		ItemHandler:     handler.NewItemHandler(itemService),
+		Router:           r,
+		DB:               db,
+		AuthMiddleware:   middleware.AuthMiddleware(userRepo),
+		UserHandler:      handler.NewUserHandler(userService),
+		AuthHandler:      handler.NewAuthHandler(authService),
+		CategoryHandler:  handler.NewCategoryHandler(categoryService),
+		ItemHandler:      handler.NewItemHandler(itemService),
 		BorrowHandler:    handler.NewBorrowHandler(borrowService),
-		LogHandler: handler.NewLogHandler(logService),
-		// ReturnHandler:    handler.NewReturnHandler(returnService),
-		// DashboardHandler: handler.NewDashboardHandler(dashboardService),
+		LogHandler:       handler.NewLogHandler(logService),
+		ReturnHandler:    handler.NewReturnHandler(returnService),
+		DashboardHandler: handler.NewDashboardHandler(dashboardService),
 	}
 
 	app.Router.Use(cors.New(cors.Config{
