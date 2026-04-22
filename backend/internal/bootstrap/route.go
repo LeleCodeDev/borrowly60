@@ -25,8 +25,8 @@ func (a *App) RegisterRoute() {
 		allRoles.GET("/categories", a.CategoryHandler.GetAllCategories)
 		allRoles.GET("/categories/:id", a.CategoryHandler.GetCategoryByID)
 
-		// allRoles.GET("/items", a.ItemHandler.GetAllItems)
-		// allRoles.GET("/items/:id", a.ItemHandler.GetItemByID)
+		allRoles.GET("/items", a.ItemHandler.GetAllItems)
+		allRoles.GET("/items/:id", a.ItemHandler.GetItemByID)
 
 		// allRoles.GET("/auth/me", a.AuthHandler.GetUserProfile)
 	}
@@ -59,10 +59,10 @@ func (a *App) RegisterRoute() {
 	admin.PUT("/categories/:id", a.CategoryHandler.UpdateCategory)
 	admin.DELETE("/categories/:id", a.CategoryHandler.DeleteCategory)
 
-	// 	admin.POST("/items", a.ItemHandler.CreateItem)
-	// 	admin.GET("/items/card", a.ItemHandler.GetItemCard)
-	// 	admin.PUT("/items/:id", a.ItemHandler.UpdateItem)
-	// 	admin.DELETE("/items/:id", a.ItemHandler.DeleteItem)
+	admin.POST("/items", a.ItemHandler.CreateItem)
+	admin.GET("/items/card", a.ItemHandler.GetItemCard)
+	admin.PUT("/items/:id", a.ItemHandler.UpdateItem)
+	admin.DELETE("/items/:id", a.ItemHandler.DeleteItem)
 
 	// 	admin.POST("/borrows", a.BorrowHandler.CreateBorrowForUser)
 	// 	admin.PUT("/borrows/:id", a.BorrowHandler.UpdateBorrowForUser)

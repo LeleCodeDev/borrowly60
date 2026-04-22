@@ -12,18 +12,18 @@ import (
 	"github.com/lelecodedev/borrowly/pkg/response"
 )
 
-type CategoryHandler struct {
-	service *service.CategoryService
+type ItemHandler struct {
+	service *service.ItemService
 }
 
-func NewCategoryHandler(service *service.CategoryService) *CategoryHandler {
-	return &CategoryHandler{
+func NewItemHandler(service *service.ItemService) *ItemHandler {
+	return &ItemHandler{
 		service: service,
 	}
 }
 
-func (h *CategoryHandler) GetAllCategories(c *gin.Context) {
-	var req dto.CategoryQuery
+func (h *ItemHandler) GetAllItems(c *gin.Context) {
+	var req dto.ItemQuery
 
 	if err := c.ShouldBindQuery(&req); err != nil {
 		response.HandleError(c, err)
@@ -33,23 +33,22 @@ func (h *CategoryHandler) GetAllCategories(c *gin.Context) {
 	req.SetDefaults()
 	ctx := c.Request.Context()
 
-	categories, total, err := h.service.GetAll(ctx, req)
+	items, total, err := h.service.GetAll(ctx, req)
 	if err != nil {
 		response.HandleError(c, err)
 		return
 	}
 
 	if req.Unpage {
-		response.Success(c, http.StatusOK, "All categories successfully fetched", categories)
+		response.Success(c, http.StatusOK, "All items successfully fetched", items)
 		return
 	}
 
 	pagination := pagination.BuildPagination(req.Page, req.Size, total)
-
-	response.Paginated(c, http.StatusOK, "All categories successfully fetched", categories, pagination)
+	response.Paginated(c, http.StatusOK, "All items successfully fetched", items, pagination)
 }
 
-func (h *CategoryHandler) GetCategoryByID(c *gin.Context) {
+func (h *ItemHandler) GetItemByID(c *gin.Context) {
 	id, err := util.GetParamID(c)
 	if err != nil {
 		response.HandleError(c, err)
@@ -58,61 +57,75 @@ func (h *CategoryHandler) GetCategoryByID(c *gin.Context) {
 
 	ctx := c.Request.Context()
 
-	category, err := h.service.GetByID(ctx, uint(id))
+	item, err := h.service.GetByID(ctx, uint(id))
 	if err != nil {
 		response.HandleError(c, err)
 		return
 	}
 
-	response.Success(c, http.StatusOK, "Category successfully fetched", category)
+	response.Success(c, http.StatusOK, "Item successfully fetched", item)
 }
 
-func (h *CategoryHandler) CreateCategory(c *gin.Context) {
-	var req dto.CategoryRequest
+func (h *ItemHandler) GetItemCard(c *gin.Context) {
+	ctx := c.Request.Context()
+
+	dashboardData, err := h.service.GetCardData(ctx)
+	if err != nil {
+		response.HandleError(c, err)
+		return
+	}
+
+	response.Success(c, http.StatusOK, "Item dashboard data successfully fetched", dashboardData)
+}
+
+func (h *ItemHandler) CreateItem(c *gin.Context) {
+	var req dto.ItemCreateRequest
 
 	if err := c.ShouldBind(&req); err != nil {
 		response.HandleError(c, err)
 		return
 	}
 
+	file, _ := c.FormFile("image")
 	ctx := c.Request.Context()
 	currentUser := c.MustGet("user").(model.User)
 
-	category, err := h.service.Create(ctx, currentUser, req)
+	item, err := h.service.Create(ctx, currentUser, req, file)
 	if err != nil {
 		response.HandleError(c, err)
 		return
 	}
 
-	response.Success(c, http.StatusCreated, "Category successfully created", category)
+	response.Success(c, http.StatusCreated, "Item successfully created", item)
 }
 
-func (h *CategoryHandler) UpdateCategory(c *gin.Context) {
+func (h *ItemHandler) UpdateItem(c *gin.Context) {
 	id, err := util.GetParamID(c)
 	if err != nil {
 		response.HandleError(c, err)
 		return
 	}
 
-	var req dto.CategoryRequest
+	var req dto.ItemUpdateRequest
 	if err := c.ShouldBind(&req); err != nil {
 		response.HandleError(c, err)
 		return
 	}
 
+	file, _ := c.FormFile("image")
 	ctx := c.Request.Context()
 	currentUser := c.MustGet("user").(model.User)
 
-	category, err := h.service.Update(ctx, uint(id), currentUser, req)
+	item, err := h.service.Update(ctx, uint(id), currentUser, req, file)
 	if err != nil {
 		response.HandleError(c, err)
 		return
 	}
 
-	response.Success(c, http.StatusOK, "Category successfully updated", category)
+	response.Success(c, http.StatusOK, "Item successfully updated", item)
 }
 
-func (h *CategoryHandler) DeleteCategory(c *gin.Context) {
+func (h *ItemHandler) DeleteItem(c *gin.Context) {
 	id, err := util.GetParamID(c)
 	if err != nil {
 		response.HandleError(c, err)
@@ -127,5 +140,5 @@ func (h *CategoryHandler) DeleteCategory(c *gin.Context) {
 		return
 	}
 
-	response.Success[any](c, http.StatusOK, "Category successfully deleted", nil)
+	response.Success[any](c, http.StatusOK, "Item successfully deleted", nil)
 }
