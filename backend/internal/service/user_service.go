@@ -98,7 +98,7 @@ func (s *UserService) Create(ctx context.Context, currentUser model.User, req dt
 			return err
 		}
 
-		log := mapper.ToLogActivityModel(currentUser, "CREATE_USER")
+		log := mapper.ToLogActivityModel(currentUser, fmt.Sprintf("CREATE USER %v", user.Email))
 		if err := txLogRepo.Create(ctx, log); err != nil {
 			return err
 		}
@@ -134,7 +134,7 @@ func (s *UserService) Update(ctx context.Context, id uint, currentUser model.Use
 			return err
 		}
 
-		log := mapper.ToLogActivityModel(currentUser, "UPDATE_USER")
+		log := mapper.ToLogActivityModel(currentUser, fmt.Sprintf("UPDATE USER %v", user.Email))
 		if err := txLogRepo.Create(ctx, log); err != nil {
 			return err
 		}
@@ -166,7 +166,7 @@ func (s *UserService) Delete(ctx context.Context, currentUser model.User, id uin
 			return err
 		}
 
-		log := mapper.ToLogActivityModel(currentUser,"DELETE_USER")
+		log := mapper.ToLogActivityModel(currentUser, fmt.Sprintf("DELETE USER %v", user.Email))
 		return txLogRepo.Create(ctx, log)
 	})
 }

@@ -153,7 +153,7 @@ func (s *ReturnService) CreateForUser(ctx context.Context, currentUser model.Use
 
 		createdReturn = returnBorrow
 
-		log := mapper.ToLogActivityModel(currentUser, "CREATE_RETURN")
+		log := mapper.ToLogActivityModel(currentUser, fmt.Sprintf("CREATE RETURN ITEM %v", returnBorrow.Borrow.Item.Name))
 		if err := txLogRepo.Create(ctx, log); err != nil {
 			return err
 		}
@@ -188,7 +188,7 @@ func (s *ReturnService) UpdateForUser(ctx context.Context, id uint, currentUser 
 
 		updatedReturn = returnBorrow
 
-		log := mapper.ToLogActivityModel(currentUser, "UPDATE_RETURN")
+		log := mapper.ToLogActivityModel(currentUser, fmt.Sprintf("UPDATE RETURN ITEM %v", returnBorrow.Borrow.Item.Name))
 		if err := txLogRepo.Create(ctx, log); err != nil {
 			return err
 		}
@@ -245,7 +245,7 @@ func (s *ReturnService) Delete(ctx context.Context, id uint, currentUser model.U
 			return err
 		}
 
-		log := mapper.ToLogActivityModel(currentUser, "DELETE_RETURN")
+		log := mapper.ToLogActivityModel(currentUser, fmt.Sprintf("DELETE RETURN ITEM %v", returnBorrow.Borrow.Item.Name))
 		return txLogRepo.Create(ctx, log)
 	})
 }
