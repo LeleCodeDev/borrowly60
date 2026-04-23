@@ -185,16 +185,6 @@ const OfficerDashboard = () => {
                 <ArrowRight className="h-4 w-4" />
               </Link>
             </Button>
-            <Button
-              className="w-full justify-between hover:cursor-pointer border bg-background text-black shadow-xs dark:border-input dark:bg-input/30 dark:text-white hover:bg-primary hover:text-primary-foreground dark:hover:bg-primary transition-colors duration-300"
-              variant="outline"
-              asChild
-            >
-              <Link to="/officer/items">
-                View Item Stock
-                <ArrowRight className="h-4 w-4" />
-              </Link>
-            </Button>
           </CardContent>
         </Card>
       </main>
