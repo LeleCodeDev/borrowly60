@@ -62,7 +62,7 @@ func (r *CategoryRepository) FindByID(ctx context.Context, id uint) (*model.Cate
 
 func (r *CategoryRepository) ExistByName(ctx context.Context, name string) (bool, error) {
 	var count int64
-	err := r.db.WithContext(ctx).Model(&model.Category{}).Where("name = ?", name).Count(&count).Error
+	err := r.db.WithContext(ctx).Model(&model.Category{}).Where("name COLLATE utf8mb4_bin = ?", name).Count(&count).Error
 	return count > 0, err
 }
 
