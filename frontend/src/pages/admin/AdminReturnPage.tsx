@@ -169,7 +169,6 @@ const AdminReturnPage = () => {
 
   return (
     <div className="min-h-screen ">
-      {/* Header */}
       <header className="border-b bg-background/95 backdrop-blur sticky top-0 z-10">
         <div className="flex w-full items-center justify-between h-15 px-6">
           <div className="flex items-center gap-3">
@@ -187,7 +186,6 @@ const AdminReturnPage = () => {
       </header>
 
       <main className="p-6 space-y-6">
-        {/* Stats */}
         <div className="grid grid-cols-2 gap-4">
           <Card className="border-green-100 dark:border-green-900">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -236,7 +234,6 @@ const AdminReturnPage = () => {
           </Card>
         </div>
 
-        {/* Table Card */}
         <Card>
           <CardHeader className="pb-4">
             <div className="flex justify-end">
@@ -497,7 +494,6 @@ const AdminReturnPage = () => {
             </Table>
           </CardContent>
 
-          {/* Footer */}
           <div className="flex items-center justify-between px-6 py-4 border-t">
             <div className="flex items-center gap-2">
               <Label

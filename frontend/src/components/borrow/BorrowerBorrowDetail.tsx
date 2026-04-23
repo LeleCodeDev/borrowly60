@@ -32,8 +32,7 @@ const BorrowerBorrowDetail: React.FC<BorrowerBorrowDetailProps> = ({
       <DialogContent className="sm:max-w-2xl p-0 overflow-hidden gap-0">
         {selectedBorrow && (
           <>
-            {/* Hero */}
-            <div className="relative h-56 w-full overflow-hidden bg-muted shrink-0">
+            <div className="relative h-64 w-full overflow-hidden bg-muted shrink-0">
               {selectedBorrow.item?.image ? (
                 <img
                   src={BaseURL + "/" + selectedBorrow.item.image}
@@ -56,9 +55,7 @@ const BorrowerBorrowDetail: React.FC<BorrowerBorrowDetailProps> = ({
               </div>
             </div>
 
-            {/* Two-column body — always, mirrors officer page */}
             <div className="grid grid-cols-2 divide-x divide-border">
-              {/* Left — Item Details */}
               <div className="p-5 space-y-4">
                 <p className="text-xs font-semibold text-muted-foreground uppercase tracking-widest">
                   Item Details
@@ -95,13 +92,11 @@ const BorrowerBorrowDetail: React.FC<BorrowerBorrowDetailProps> = ({
                 </div>
               </div>
 
-              {/* Right — Borrow Details */}
               <div className="p-5 space-y-4">
                 <p className="text-xs font-semibold text-muted-foreground uppercase tracking-widest">
                   Borrow Details
                 </p>
 
-                {/* Date grid */}
                 <div className="grid grid-cols-3 divide-x divide-border border-2 border-border rounded-lg overflow-hidden">
                   <div className="flex flex-col gap-0.5 px-3 py-2.5 bg-muted/30">
                     <p className="text-xs text-muted-foreground uppercase tracking-wide">
@@ -133,7 +128,6 @@ const BorrowerBorrowDetail: React.FC<BorrowerBorrowDetailProps> = ({
                   </div>
                 </div>
 
-                {/* Officer note */}
                 {selectedBorrow.officerNote && (
                   <div className="space-y-1.5">
                     <p className="text-xs text-muted-foreground font-medium uppercase tracking-widest">
@@ -145,7 +139,6 @@ const BorrowerBorrowDetail: React.FC<BorrowerBorrowDetailProps> = ({
                   </div>
                 )}
 
-                {/* Reviewer — shown for approved / rejected / borrowed / returned */}
                 {selectedBorrow.reviewedUser && (
                   <div className="space-y-3">
                     <div className="space-y-0.5">
@@ -183,7 +176,6 @@ const BorrowerBorrowDetail: React.FC<BorrowerBorrowDetailProps> = ({
               </div>
             </div>
 
-            {/* Footer */}
             <div className="px-5 pb-5 pt-4 border-t">
               {selectedBorrow.status === "approved" ? (
                 <div className="flex gap-2">

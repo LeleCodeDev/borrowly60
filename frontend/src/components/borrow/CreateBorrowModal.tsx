@@ -44,7 +44,6 @@ const CreateBorrowModal: React.FC<CreateBorrowModalProps> = ({
           <form onSubmit={onSubmit}>
             {selectedItem && (
               <>
-                {/* Hero image */}
                 <div className="relative h-80 w-full overflow-hidden bg-muted shrink-0">
                   {selectedItem.image ? (
                     <img
@@ -72,7 +71,6 @@ const CreateBorrowModal: React.FC<CreateBorrowModalProps> = ({
                   </div>
                 </div>
 
-                {/* Form body */}
                 <div className="p-5 space-y-4">
                   <div className="grid grid-cols-2 gap-3">
                     <div className="space-y-1.5">

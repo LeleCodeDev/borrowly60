@@ -264,7 +264,6 @@ const AdminItemPage = () => {
           </Card>
         </div>
 
-        {/* Toolbar */}
         <div className="flex items-center gap-3">
           <Button
             className="hover:cursor-pointer shrink-0 gap-2"
@@ -410,7 +409,6 @@ const AdminItemPage = () => {
           </Popover>
         </div>
 
-        {/* Grid */}
         {isPending ? (
           <div className="flex flex-col items-center justify-center py-16 border rounded-lg bg-muted/30 gap-3">
             <Spinner className="w-8 h-8" />
@@ -428,7 +426,6 @@ const AdminItemPage = () => {
                 key={item.id}
                 className="group bg-card border rounded-xl shadow-lg flex flex-col overflow-hidden hover:bg-muted/30 transition-colors duration-200"
               >
-                {/* Image */}
                 <div className="relative p-2 aspect-video w-full overflow-hidden bg-muted">
                   {item.image ? (
                     <img
@@ -443,9 +440,7 @@ const AdminItemPage = () => {
                   )}
                 </div>
 
-                {/* Content */}
                 <div className="flex flex-col gap-3 p-4 flex-1">
-                  {/* Category + Status */}
                   <div className="flex items-center justify-between gap-2">
                     <span className="inline-flex items-center gap-1 text-[11px] text-muted-foreground font-medium uppercase tracking-wide">
                       <Tag className="h-3 w-3" />
@@ -466,7 +461,6 @@ const AdminItemPage = () => {
                     </Badge>
                   </div>
 
-                  {/* Name + Description */}
                   <div className="flex-1 space-y-1">
                     <h3 className="font-semibold text-sm leading-snug tracking-tight">
                       {item.name}
@@ -481,7 +475,6 @@ const AdminItemPage = () => {
                     </p>
                   </div>
 
-                  {/* Qty */}
                   <div className="flex items-center justify-between border-t pt-3">
                     <div className="flex items-center gap-1.5 bg-muted px-2.5 py-1 rounded-md">
                       <span className="text-xs text-muted-foreground">Qty</span>
@@ -490,7 +483,6 @@ const AdminItemPage = () => {
                       </span>
                     </div>
 
-                    {/* Actions */}
                     <div className="flex gap-1">
                       <Button
                         variant="ghost"
@@ -520,7 +512,6 @@ const AdminItemPage = () => {
           </div>
         )}
 
-        {/* Footer */}
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Label

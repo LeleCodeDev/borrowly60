@@ -88,7 +88,6 @@ const AdminLogPage = () => {
                 className="hover:bg-muted/30 transition-colors group border"
               >
                 <CardContent className="flex items-start ">
-                  {/* Content */}
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 flex-wrap">
                       <span className="font-medium text-sm">
@@ -122,7 +121,6 @@ const AdminLogPage = () => {
                     </p>
                   </div>
 
-                  {/* Timestamp */}
                   <div className="text-xs text-muted-foreground shrink-0 whitespace-nowrap pt-0.5">
                     {formatDate(log.createdAt)}
                   </div>
