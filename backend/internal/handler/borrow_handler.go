@@ -311,7 +311,8 @@ func (h *BorrowHandler) GenerateBorrowPDF(c *gin.Context) {
 	}
 
 	c.Header("Content-Type", "application/pdf")
-	c.Header("Content-Disposition", fmt.Sprintf("attachment; filename=%q", filename))
+	c.Header("Access-Control-Expose-Headers", "Content-Disposition")
+	c.Header("Content-Disposition", fmt.Sprintf("attachment; filename=%q.pdf", filename))
 	c.Header("Content-Length", fmt.Sprintf("%d", len(pdfBytes)))
 
 	c.Data(http.StatusOK, "application/pdf", pdfBytes)

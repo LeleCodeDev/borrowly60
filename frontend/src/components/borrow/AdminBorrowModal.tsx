@@ -55,22 +55,7 @@ const AdminBorrowModal: React.FC<AdminBorrowModalProps> = ({
                   Item Details
                 </p>
                 <div className="space-y-3">
-                  <div className="space-y-0.5">
-                    <p className="text-[10px] text-muted-foreground uppercase tracking-wide">
-                      Name
-                    </p>
-                    <p className="text-sm font-semibold">
-                      {selectedBorrow.item?.name}
-                    </p>
-                  </div>
-                  <div className="space-y-0.5">
-                    <p className="text-[10px] text-muted-foreground uppercase tracking-wide">
-                      Category
-                    </p>
-                    <p className="text-sm font-semibold">
-                      {selectedBorrow.item?.category?.name}
-                    </p>
-                  </div>
+                  
                   <div className="space-y-0.5">
                     <p className="text-[10px] text-muted-foreground uppercase tracking-wide">
                       Qty Borrowed

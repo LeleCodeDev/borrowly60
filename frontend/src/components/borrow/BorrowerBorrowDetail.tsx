@@ -66,22 +66,6 @@ const BorrowerBorrowDetail: React.FC<BorrowerBorrowDetailProps> = ({
                 <div className="space-y-3">
                   <div className="space-y-0.5">
                     <p className="text-xs text-muted-foreground uppercase tracking-wide">
-                      Name
-                    </p>
-                    <p className="text-sm font-semibold">
-                      {selectedBorrow.item?.name}
-                    </p>
-                  </div>
-                  <div className="space-y-0.5">
-                    <p className="text-xs text-muted-foreground uppercase tracking-wide">
-                      Category
-                    </p>
-                    <p className="text-sm font-semibold">
-                      {selectedBorrow.item?.category?.name}
-                    </p>
-                  </div>
-                  <div className="space-y-0.5">
-                    <p className="text-xs text-muted-foreground uppercase tracking-wide">
                       Quantity
                     </p>
                     <p className="text-sm font-semibold">

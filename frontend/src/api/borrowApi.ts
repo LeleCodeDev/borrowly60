@@ -72,11 +72,17 @@ export const borrowApi = {
       responseType: "blob",
     });
 
+    let filename = "Borrow Report.pdf";
+
     const url = URL.createObjectURL(res.data);
     const a = document.createElement("a");
     a.href = url;
-    a.download = "";
+
+    a.download = filename;
+
+    document.body.appendChild(a);
     a.click();
+    a.remove();
     URL.revokeObjectURL(url);
   },
 };
