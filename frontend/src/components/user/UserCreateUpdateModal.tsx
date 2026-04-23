@@ -166,13 +166,17 @@ const UserCreateUpdateModal: React.FC<UserCreateUpdateModalProps> = ({
                 <Label htmlFor="phone" className="mb-2">
                   Phone
                 </Label>
-                <Input
-                  id="phone"
-                  className={`${fieldErrors?.phone && "border-red-600 border-3"}`}
-                  value={formData.phone}
-                  onChange={(e) => onChange("phone", e.target.value)}
-                  placeholder="Enter phone"
-                />
+                <div className="flex gap-2 items-center">
+                  <p>+62</p>
+                  <Input
+                    id="phone"
+                    className={`${fieldErrors?.phone && "border-red-600 border-3"}`}
+                    value={formData.phone}
+                    onChange={(e) => onChange("phone", e.target.value)}
+                    placeholder="Enter phone"
+                  />
+                </div>
+
                 {fieldErrors?.phone && (
                   <p className="text-sm text-red-600">{fieldErrors.phone}</p>
                 )}

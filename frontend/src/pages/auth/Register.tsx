@@ -153,16 +153,19 @@ const Register = () => {
               <Label className="mb-3" htmlFor="phone">
                 Phone
               </Label>
-              <Input
-                id="phone"
-                type="text"
-                placeholder="081234567890"
-                className={`${fieldErrors?.phone ? "border-red-600 border-3" : ""}`}
-                value={formData.phone}
-                onChange={(e) =>
-                  setFormData({ ...formData, phone: e.target.value })
-                }
-              />
+              <div className="flex gap-2 items-center">
+                <p>+62</p>
+                <Input
+                  id="phone"
+                  type="text"
+                  placeholder="81234567890"
+                  className={`${fieldErrors?.phone ? "border-red-600 border-3" : ""}`}
+                  value={formData.phone}
+                  onChange={(e) =>
+                    setFormData({ ...formData, phone: e.target.value })
+                  }
+                />
+              </div>
 
               {fieldErrors?.phone && (
                 <p className="text-sm text-red-600 mt-1">{fieldErrors.phone}</p>
